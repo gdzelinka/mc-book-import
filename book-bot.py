@@ -107,17 +107,18 @@ if __name__ == '__main__':
     mouse = Controller()
     if book.endswith('.pdf'):
         text = convert_pdf_to_txt(book)
+        with open('bookpdf.txt', 'w', encoding='utf8') as f:
+            f.write(text)
     
     elif book.endswith('.txt'):
-        with open(book, 'r') as f:
+        with open(book, 'r', encoding='utf8') as f:
             text = f.read()
     else:
         raise Exception("Book is neither a pdf nor a txt file")
 
     text = text.replace('\n', ' ')
-    mouse.position = (806, 842)
+    text = text.replace('  ', ' ')
+    mouse.position = (730, 349)
     mouse.press(Button.left)
     mouse.release(Button.left)
     txt_to_book(text, mouse)
-
-
